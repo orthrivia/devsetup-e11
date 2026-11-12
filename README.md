@@ -98,14 +98,9 @@ $
 
 ![테스트 실행 결과](./screenshots/b-cli-cmd-combo.png)
 
+<br>
 
 ```bash
-$ cd ~/test-hello
-$ ls
-$ cp -r test1 test2 
-# test1 dir 복사하여 새로운 test2 dir 생성 cmd
-# -r 은 하위 dir/파일 포함 옵션  
-
 
 $ls                 # 하위 dir 목록 cmd
 test0  test1
