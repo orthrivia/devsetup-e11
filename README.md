@@ -124,11 +124,48 @@ $
 
 
 ## c. 권한 변경 실습
+### 리눅스(Linux)에서 755와 644는 파일과 디렉터리의 접근 권한을 숫자로 나타낸 값입니다.
 
-```
-#
+권한 숫자는 [소유자(User)] - [그룹(Group)] - [기타 사용자(Others)] 순서로 구성되며, 읽기(4), 쓰기(2), 실행(1) 권한의 합계로 계산합니다.
 
+숫자별 권한 계산법 (참고)
+
+- 4 = 읽기 (Read, r)
+- 2 = 쓰기 (Write, w)
+- 1 = 실행 (Execute, x)
+- 0 = 권한 없음 (-)
+
+#### 755 권한 기호 표기: rwxr-xr-x
+#### 644 권한 기호 표기: rw-r--r--
+
+
+```bash
+$ls -lh             # list segment cmd
+total 12K
+drwxr-xr-x 2 User Group 4.0K Nov 12 19:23 test0   
+drwxr-xr-x 2 User Group 4.0K Nov 12 21:32 test1
+drwxr-xr-x 2 User Group 4.0K Nov 12 21:38 test2   
+# test2 dir 현재 권한 755 drwxr-xr-x
+$chmod 754 test2    # 754로 권한 변경 (기타사용자 실행 권한 'x' 제거)
+$ls -lh             # list segment cmd 재실행
+total 12K
+drwxr-xr-x 2 User Group 4.0K Nov 12 19:23 test0
+drwxr-xr-x 2 User Group 4.0K Nov 12 21:32 test1
+drwxr-xr-- 2 User Group 4.0K Nov 12 21:38 test2   
+# test2 dir 754로 권한 변경 확인 drwxr-xr--  
+$cd test2 && ls -lh
+total 4.0K
+-rw-r--r-- 1 User Group 12 Nov 12 21:37 hello-world.txt  
+# "hello-world.txt" 파일 권한 644 확인 -rw-r--r--  
+$chmod 755 hello-world.txt && ls -lh 
+# 파일권한 755로 변경 후 list segment cmd 
+total 4.0K
+-rwxr-xr-x 1 User Group 12 Nov 12 21:37 hello-world.txt
+# "hello-world.txt" 파일 권한 755 변경 확인 -rwxr-xr-x  
+$
 ```
+![테스트 실행 결과](./screenshots/c-chmod-test.png)
+
 
 
 
