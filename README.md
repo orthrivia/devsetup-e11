@@ -59,7 +59,13 @@ git version 2.53.0
 ## b. 터미널 기본 조작 및 폴더 구성
 
 ```bash
-# 현재위치 / 목록 (숨김포함) / 이동 / 생성 / 복사 / 이동 및 이름변경 / 삭제 
+$ PS1="$" # ID익명화
+$ cd ~ 
+# User's Home Folder 디렉토리로 이동 (/home/username)
+$ cd .. # User Home 상위 폴더인 Home 폴더로 이동
+$ pwd # 현재 작업 폴더인 Home 출력
+$ cd ~/projects   
+ / 목록 (숨김포함) / 이동 / 생성 / 복사 / 이동 및 이름변경 / 삭제 
 # test.txt 새 파일 생성 / 'hello world' 텍스트 삽입; 'hello world' 텍스트 내용 출력 확인
 
 
