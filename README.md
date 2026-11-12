@@ -59,32 +59,44 @@ git version 2.53.0
 ## b. 터미널 기본 조작 및 폴더 구성
 
 ```bash
-$ PS1="$" # ID익명화
-$ cd ~ 
-# User's Home Folder 디렉토리로 이동 (/home/username)
-$ cd .. # User Home 상위 폴더인 Home 폴더로 이동
-$ pwd # 현재 작업 폴더인 Home 출력
-$ cd ~/projects   
- / 목록 (숨김포함) / 이동 / 생성 / 복사 / 이동 및 이름변경 / 삭제 
-# test.txt 새 파일 생성 / 'hello world' 텍스트 삽입; 'hello world' 텍스트 내용 출력 확인
+$PS1="$"            # ID익명화
+$cd ~               # user Home dir로 이동 (/home/username)
+$cd ..              # User Home 상위 dir인 Home 폴더로 이동 
+$pwd                # working dir 확인 cmd
+/home               # working dir 출력 (/home) 
+$cd ~               # user home dir 이동
+$mkdir test-hello   # test-hello dir 생성
+$cd ~/test-hello    # test-hello dir 이동
+$mkdir "test0" "test1"  # "test0" "test1" 2개 dir 생성
+$cd test0               # /test-hello/test0 dir 이동
+$touch empty.txt        # empty.txt 파일 생성
 
+$ls -alh    # test0 dir 내 모든 dir/파일 list cmd  
+total 8.0K  # 모든 파일 및 숨김 Dir 출력  
+drwxr-xr-x 2 owner group 4.0K Nov 12 19:22 .
+drwxr-xr-x 4 owner group 4.0K Nov 12 19:20 ..
+-rw-r--r-- 1 owner group    0 Nov 12 19:22 empty.txt
+# "empty.txt" 빈 파일로 생성 확인
 
+$rm empty.txt       # "empty.txt" 삭제 cmd
+$ls -alh            # test0 dir 아래 모든 dir/파일 나열 cmd
+total 8.0K
+drwxr-xr-x 2 owner group 4.0K Nov 12 19:23 .
+drwxr-xr-x 4 owner group 4.0K Nov 12 19:20 ..
+# "empty.txt" 파일 내역 삭제 확인
 
-
-
-
-
+$cd ../test1        # /test-hello/test1 dir로 이동 cmd
+$touch hello.txt    # "hello.txt" 파일 생성 cmd
+$echo "hello world" >> hello.txt    
+# "hello.txt" 파일에 "hello world" 문장 text 삽입 cmd 
+$cat hello.txt          # "hello.txt" 파일 내용 출력 cmd 
+hello world             # "hello world" 출력  
+$cat -n hello.txt       # -n 파일 내용 줄번호 포함 출력 cmd
+     1  hello world     # 줄번호 1 포함 "hello world" 출력
+$
 ```
 
-
-
-
-
-
-
-
-
-
+![테스트 실행 결과](./screenshots/b-cli-cmd-combo.png)
 
 
 
