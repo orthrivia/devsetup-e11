@@ -99,10 +99,39 @@ $
 ![테스트 실행 결과](./screenshots/b-cli-cmd-combo.png)
 
 
+```bash
+$ cd ~/test-hello
+$ ls
+$ cp -r test1 test2 
+# test1 dir 복사하여 새로운 test2 dir 생성 cmd
+# -r 은 하위 dir/파일 포함 옵션  
+
+
+$ls                 # 하위 dir 목록 cmd
+test0  test1
+$cp -r test1 test2  # test1 dir 을 test2 dir 로 복사 
+# -r 하위 목록 포함 옵션 
+$ls                 # 하위 dir 목록 list cmd
+test0  test1  test2 # test2 dir 복사 확인
+$cd test2           # test2 dir 이동
+$ls                 # test2 dir 목록 list cmd
+hello.txt           # test2 dir 내 목록 파일 확인
+
+$mv hello.txt hello-world.txt
+# hello.txt 파일명을 hello-world.txt 로 변경 cmd
+$ls                 # test2 dir 목록 list cmd
+hello-world.txt     # test2 dir 내 파일명 변경 확인
+$
+```
+
+![테스트 실행 결과](./screenshots/b-cli-cmd-combo-01.png)
+
+
 
 ## c. 권한 변경 실습
 
 ```
+#
 
 ```
 
