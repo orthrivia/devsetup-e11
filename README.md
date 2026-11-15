@@ -169,13 +169,16 @@ $
 
 
 
-## d. Docker 설치/점검
+## d. Docker 설치 / hello-world
+
+- Docker 버전 확인
+- hello-world 실행 확인 
+- Docker daemon 정상 동작 확인
 
 ```bash
 $ docker --version
 docker run hello-world
-Docker version 29.9.3, build 5457199
-# docker 버전 확인
+Docker version 29.9.3, build 5457199  # docker 버전 확인
 
 # docker daemon 정상 동작 확인
 Hello from Docker!
@@ -195,44 +198,150 @@ To try something more ambitious, you can run an Ubuntu container with:
 ```
 ![테스트 실행 결과](./screenshots/d-docker-version-daemon.png)
 
-## e. hello-world 실행
+
+
+
+## e. Docker 기본 운영 명령 수행
+
+- docker 기본 명령 수행 
+- images / ps / logs / stats
+ 
+
+```bash
+$ docker images      
+                                                                                                     i Info →   U  In Use
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+hello-world:latest   e2ac70e7319a       10.1kB             0B    U   
+$
+$ docker ps -a
+CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS     NAMES
+d1e28051c114   hello-world   "/hello"   39 minutes ago   Exited (0) 23 minutes ago             unruffled_proskuriakova
+$
+$ docker logs -ft --tail 10 d1e28051c114     # 마지막 10줄 실행 결과(--tail) 계속 추적하면서(-f) 시간과 함께 출력(-t)
+2026-11-15T11:05:56.657074974Z 
+2026-11-15T11:05:56.657075580Z To try something more ambitious, you can run an Ubuntu container with:
+2026-11-15T11:05:56.657076185Z  $ docker run -it ubuntu bash
+2026-11-15T11:05:56.657076875Z 
+2026-11-15T11:05:56.657077475Z Share images, automate workflows, and more with a free Docker ID:
+2026-11-15T11:05:56.657082024Z  https://hub.docker.com/
+2026-11-15T11:05:56.657082631Z 
+2026-11-15T11:05:56.657083049Z For more examples and ideas, visit:
+2026-11-15T11:05:56.657083572Z  https://docs.docker.com/get-started/
+2026-11-15T11:05:56.657084012Z 
+$
+$ docker run -d --name monitor-test nginx       # monitor-test 웹서버 container 생성
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+37fb86c2a767: Pull complete 
+512ac5e7ce8e: Pull complete 
+1724c05f72c6: Pull complete 
+bbb080c71d50: Pull complete 
+1962e1ff75b4: Pull complete 
+7cb4701ce7cd: Pull complete 
+6d2e43921e9e: Pull complete 
+Digest: sha256:165ddde8751e75a1c907d24ef10d9f6deb08b57e0fe56caf67512486aff76d82
+Status: Downloaded newer image for nginx:latest
+f429c08f48fca75a30f862e27c3426b36a7e9ac32964655cf22725eb457ab677
+$
+$ docker stats --no-stream    # 현재 stats snapshot 으로 출력 (--no-stream)  
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT    MEM %     NET I/O         BLOCK I/O     PIDS
+f429c08f48fc   monitor-test   0.00%     19.3MiB / 23.47GiB   0.08%     1.17kB / 126B   0B / 12.3kB   25
+$
 
 ```
 
+![Docker CMD 실행 결과](./screenshots/e-docker-basic-cmd.png)
+
+![Docker Stats Graph](./screenshots/e-docker-stats-graph.png)
+
+
+
+## f. 컨테이너 실행 실습 
+
+- hello-world 실행 (d에 기록)
+
+- ubuntu 컨테이너 실행 후 ls, echo 명령 수행
+
+```bash
+
+$ docker run -it --name my-ubuntu ubuntu bash   # ubuntu container 생성 # -it: 터미널 입력  # bash: 컨테이너 내부 bash 쉘 실행
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+517b871c26ea: Pull complete 
+96aae9022e0e: Pull complete 
+Digest: sha256:065aa8626841f16057b78b027b464cd59c4fac36c204c72dcbf48d66f5fa8a96
+Status: Downloaded newer image for ubuntu:latest
+
+root@f0641763d354:/# ls  # ubuntu container 내 root 폴더에서  list segment 
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+
+root@f0641763d354:/# 
+root@f0641763d354:/# echo "Hello world from Ubuntu" # Ubuntu container 에서 "" 출력 
+Hello world from Ubuntu
+
+root@f0641763d354:/# exit  # Ubuntu container 종료 
+exit
+$
+
+$ docker logs my-ubuntu    # my-ubuntu container 의 실행 로그 확인
+root@f0641763d354:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@f0641763d354:/# 
+root@f0641763d354:/# echo "Hello world from Ubuntu"
+Hello world from Ubuntu
+root@f0641763d354:/# exit
+exit
+$
+
 ```
 
+![Docker Stats Graph](./screenshots/f-1-docker-ubuntu-container-test.png)
 
 
-## f. Dockerfile 빌드/실행
+- attach vs exec 차이 
 
-```
+
+
+
+
+![Docker Stats Graph](./screenshots/f-.png)
+
+
+## g Dockerfile 빌드/실행
+
+```bash
+
 ```
 
 
 
 ## g. 포트 매핑 접속(2회)
 
-```
+```bash
+
 ```
 
 
 
 ## h. 바인드 마운트 반영
 
-```
+```bash
+
 ```
 
 
 
 ## i. 볼륨 영속성
 
-```
+```bash
+
 ```
 
 
 ## j. Git 설정 + VSCode GitHub 연동
 
-```
+```bash
+
 ```
 
 
