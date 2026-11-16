@@ -298,16 +298,56 @@ $
 ![Docker Stats Graph](./screenshots/f-1-docker-ubuntu-container-test.png)
 
 
-- attach vs exec 차이 
+<br/>
+
+- exec vs attach 차이 확인
 
 
+```bash
+
+$
+$docker run -dit --name test-exec ubuntu /bin/bash    # exec 확인용 container 'test-exec' 생성 
+0d96300f4ed836c515158afecd17a176204c71f911d7fcf0228e75a68ecb84f1
+$
+$docker exec -it test-exec bash     # exec cmd 를 통해 'test-exec' 내부에서 새로운 bash 실행     
+root@0d96300f4ed8:/#       # test-exec 내부
+root@0d96300f4ed8:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@0d96300f4ed8:/# 
+root@0d96300f4ed8:/# exit     # exec cmd bash 에서 exit
+exit
+$
+$docker ps -a     # exit 이후에도 test-exec 의 /bin/bash 명령은 그대로 유지 [STATUS Up 36 seconds]  
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
+0d96300f4ed8   ubuntu    "/bin/bash"   36 seconds ago   Up 36 seconds             test-exec
+$
+$
+$docker run -dit --name test-attach ubuntu /bin/bash  # attach 확인용 container 'test-exec' 생성
+9451f3101a0246dfbb60ff328965930cad45b426018ba9b607ac1fc9c2abeed1
+$
+$docker ps     # test-exec test-attach 컨테이너 둘 모두 running 상태 [STATUS UP]
+CONTAINER ID   IMAGE     COMMAND       CREATED              STATUS              PORTS     NAMES
+9451f3101a02   ubuntu    "/bin/bash"   25 seconds ago       Up 24 seconds                 test-attach
+0d96300f4ed8   ubuntu    "/bin/bash"   About a minute ago   Up About a minute             test-exec
+$
+$docker attach test-attach    # attach cmd 로 test-attach container bash 에 곧바로 연결 
+root@9451f3101a02:/# 
+root@9451f3101a02:/# exit     # attach cmd bash 에서 exit
+exit
+$
+$docker ps -a     #  test-attach 컨테이너는 작동 중지 확인 [STATUS Exited (0) 12 seconds ago]
+CONTAINER ID   IMAGE     COMMAND       CREATED              STATUS                      PORTS     NAMES
+9451f3101a02   ubuntu    "/bin/bash"   About a minute ago   Exited (0) 12 seconds ago             test-attach
+0d96300f4ed8   ubuntu    "/bin/bash"   2 minutes ago        Up 2 minutes                          test-exec
+$
 
 
+```
 
-![Docker Stats Graph](./screenshots/f-.png)
+![Docker Exec vs Attach](./screenshots/f-2-docker-exec-vs-attach-test.png)
 
 
-## g Dockerfile 빌드/실행
+## g. Dockerfile 빌드/실행
 
 ```bash
 
@@ -315,7 +355,7 @@ $
 
 
 
-## g. 포트 매핑 접속(2회)
+## h. 포트 매핑 접속 (2회)
 
 ```bash
 
