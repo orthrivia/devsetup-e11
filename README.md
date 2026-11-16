@@ -449,10 +449,36 @@ $
 
 ## i. 바인드 마운트 반영
 
-```bash
+- 'BEFORE mount' 출력하는 /mount-test/index.html 생성
+- nginx-bind 컨테이너 생성 (Port 8081:80)
+- 'BEFORE mount' 출력 확인
+- index.html 내용 'AFTER mount'로 변경
+- 'AFTER mount' 출력 확인
 
+
+```bash
+$basename "$PWD"
+mount-test
+$docker run -d -p 8081:80 --name nginx-bind -v "$(pwd):/usr/share/nginx/html" nginx
+docker: Error response from daemon: Conflict. The container name "/nginx-bind" is already in use by container "6262ec9934e950ba15e2a40cd5258800f04ee8cca9a15d305f2d47816656d844". You have to remove (or rename) that container to be able to reuse that name.
+
+Run 'docker run --help' for more information
+$docker run -d -p 8081:80 --name nginx-bind -v "$(pwd):/usr/share/nginx/html" nginx
+e5af6f1ac730996795a12bf3dc9da9e7135ce39b54f3b6ed2528eb6aa1943a8c
+$
+$curl localhost:8081
+<h1 style="font-size: 36px; text-align: center;">BEFORE mount</h1>
+$
+$echo '<h1 style="font-size: 48px; text-align: center;">AFTER mount</h1>' > $(pwd)/index.html
+$
+$curl localhost:8081
+<h1 style="font-size: 48px; text-align: center;">AFTER mount</h1>
+$
 ```
 
+![BEFORE mount](./screenshots/i-BEFORE-bind-mount.png)
+
+![AFTER mount](./screenshots/i-AFTER-bind-mount.png)
 
 
 ## j. 볼륨 영속성
