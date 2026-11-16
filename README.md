@@ -349,36 +349,120 @@ $
 
 ## g. Dockerfile 빌드/실행
 
+- 아래 내용으로 "Dockerfile", "index.html" 두개의 파일 생성 후 
+- cdsy-nginx 폴더에 저장
+
+```bash
+
+$basename "$PWD" && ls
+cdsy-nginx              # Dockerfile source 폴더
+Dockerfile  index.html  # cdsy-nginx 폴더에 2개 파일 저장 확인
+
+$cat Dockerfile      # Dockerfile 내용 출력
+
+# 1. 베이스 이미지 선택
+FROM nginx:latest       
+
+# 2. Label 정보
+LABEL org.opencontainers.image.description="CDSY All in One"
+LABEL org.opencontainers.image.version="1.0.0"
+
+# 3. 기본 index.html을 내가 만든 파일로 교체
+# NGINX의 기본 웹 루트 경로는 /usr/share/nginx/html
+COPY index.html /usr/share/nginx/html/index.html
+
+# 4. 포트 설정
+EXPOSE 80
+
+$cat index.html   # index.html 내용 출력
+<br/>
+<br/>
+<h1 style="font-size: 48px; text-align: center;">My Codyssey NGINX Server</h1>
+<p  style="font-size: 36px; text-align: center;">Hello CDSY World</p>
+
+```
+
+- Docker Image 및 Container 생성
+- Image Name:        cdsy-nginx:v1.0
+- Container Name:    cdsy-server
+
+```bash
+$
+$basename "$PWD"
+cdsy-nginx
+$
+$docker build -t cdsy-nginx:v1.0 .  # Docker 커스텀 Image Build
+[+] Building 2.0s (7/7) FINISHED                                                                                 docker:default
+ => [internal] load build definition from Dockerfile                                                                       0.0s
+ => => transferring dockerfile: 431B                                                                                       0.0s
+ => [internal] load metadata for docker.io/library/nginx:latest                                                            1.1s
+ => [internal] load .dockerignore                                                                                          0.0s
+ => => transferring context: 2B                                                                                            0.0s
+ => [1/2] FROM docker.io/library/nginx:latest@sha256:165ddde8751e75a1c907d24ef10d9f6deb08b57e0fe56caf67512486aff76d82      0.0s
+ => => resolve docker.io/library/nginx:latest@sha256:165ddde8751e75a1c907d24ef10d9f6deb08b57e0fe56caf67512486aff76d82      0.0s
+ => [internal] load build context                                                                                          0.0s
+ => => transferring context: 32B                                                                                           0.0s
+ => CACHED [2/2] COPY index.html /usr/share/nginx/html/index.html                                                          0.0s
+ => exporting to image                                                                                                     0.8s
+ => => exporting layers                                                                                                    0.0s
+ => => exporting manifest sha256:eba96d76942c94d1b787d065c8c7f13dc6922213d05b8c31d016e573caf9cca7                          0.0s
+ => => exporting config sha256:47ba1a6b1a997e0487c0ef045ebee487ae3454ff8a560ecbdecde2c771ac41c3                            0.0s
+ => => exporting attestation manifest sha256:36b1f682a134f6500e0796622d4486deca3c4f08d0d5d6e113a2192d633e7c4c              0.0s
+ => => exporting manifest list sha256:0d67fbd349ff4a5ceb6dfcbb316924cf1516df7ee28528844c0effb9a5f4bc3d                     0.0s
+ => => naming to docker.io/library/cdsy-nginx:v1.0                                                                         0.0s
+ => => unpacking to docker.io/library/cdsy-nginx:v1.0                                                                      0.7s
+$
+# Docker Custom Container 생성 
+$docker run -d -p 8080:80 --name cdsy-server cdsy-nginx:v1.0   
+c6f560257db785a2d3f469b45ed76aaa580aa4b64b4d3096ec3b2d99332d8785
+$
+$docker ps     
+# Docker Custom Container 동작 확인 [STATUS UP 10 minutes]
+# Port Mapping 확인 [PORTS  0.0.0.0:8080->80/tcp, [::]:8080->80/tcp]
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+c6f560257db7   cdsy-nginx:v1.0   "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   cdsy-server
+```
+
+![Docker Image Build](./screenshots/g-1-docker-image-build.png)
+
+
+## h. 포트 매핑 접속 증거
+
+```bash
+$docker ps
+CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+c6f560257db7   cdsy-nginx:v1.0   "/docker-entrypoint.…"   23 minutes ago   Up 23 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   cdsy-server
+$
+$curl localhost:8080    # localhost 8080 을 통한 cdsy-server 출력값 확인 
+<br/>
+<br/>
+<h1 style="font-size: 48px; text-align: center;">My Codyssey NGINX Server</h1>
+<p  style="font-size: 36px; text-align: center;">Hello CDSY World</p>
+$
+```
+
+![Docker Image Build](./screenshots/h-port-mapping-shot.png)
+
+
+
+
+
+## i. 바인드 마운트 반영
+
 ```bash
 
 ```
 
 
 
-## h. 포트 매핑 접속 (2회)
+## j. 볼륨 영속성
 
 ```bash
 
 ```
 
 
-
-## h. 바인드 마운트 반영
-
-```bash
-
-```
-
-
-
-## i. 볼륨 영속성
-
-```bash
-
-```
-
-
-## j. Git 설정 + VSCode GitHub 연동
+## k. Git 설정 + VSCode GitHub 연동
 
 ```bash
 
