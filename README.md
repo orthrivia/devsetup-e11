@@ -18,16 +18,17 @@ E1-1 Dev Environment Setup
 
 
 ## 수행 체크리스트
-- [ ] a. 실행환경
-- [ ] b. 터미널 기본 조작 및 폴더 구성
-- [ ] c. 권한 변경 실습
-- [ ] d. Docker 설치/점검
-- [ ] e. hello-world 실행
-- [ ] f. Dockerfile 빌드/실행
-- [ ] g. 포트 매핑 접속(2회)
-- [ ] h. 바인드 마운트 반영
-- [ ] i. 볼륨 영속성
-- [ ] j. Git 설정 + VSCode GitHub 연동
+- [x] a. 실행환경
+- [x] b. 터미널 기본 조작 및 폴더 구성
+- [x] c. 권한 변경 실습
+- [x] d. Docker 설치/hello-world
+- [x] e. Docker 기본 운영 명령 수행
+- [x] f. Docker 컨테이너 실행 실습
+- [x] g. Dockerfile 빌드/실행
+- [x] h. 포트 매핑 접속 증거
+- [x] i. 바인드 마운트 반영
+- [x] j. 볼륨 영속성
+- [x] k. Git 설정 + VSCode GitHub 연동
 
 <br>
 
@@ -50,8 +51,8 @@ Description:    Ubuntu 26.04.1 LTS
 Docker version 29.9.3, build 5457199
 git version 2.53.0
 ```
-
-![테스트 실행 결과](./screenshots/a-devenv.png)
+[실행환경]
+![실행환경](./screenshots/a-devenv.png)
 
 
 
@@ -95,8 +96,8 @@ $cat -n hello.txt       # -n 파일 내용 줄번호 포함 출력 cmd
      1  hello world     # 줄번호 1 포함 "hello world" 출력
 $
 ```
-
-![테스트 실행 결과](./screenshots/b-cli-cmd-combo.png)
+[CLI CMD Combo]
+![CLI CMD Combo](./screenshots/b-cli-cmd-combo.png)
 
 <br>
 
@@ -118,15 +119,15 @@ $ls                 # test2 dir 목록 list cmd
 hello-world.txt     # test2 dir 내 파일명 변경 확인
 $
 ```
-
-![테스트 실행 결과](./screenshots/b-cli-cmd-combo-01.png)
+[CLI CMD Combo 01]
+![CLI CMD Combo 2](./screenshots/b-cli-cmd-combo-01.png)
 
 
 
 ## c. 권한 변경 실습
-### 리눅스(Linux)에서 755와 644는 파일과 디렉터리의 접근 권한을 숫자로 나타낸 값입니다.
+#### 리눅스(Linux)에서 755와 644는 파일과 디렉터리의 접근 권한을 숫자로 나타낸 값
 
-권한 숫자는 [소유자(User)] - [그룹(Group)] - [기타 사용자(Others)] 순서로 구성되며, 읽기(4), 쓰기(2), 실행(1) 권한의 합계로 계산합니다.
+권한 숫자는 [소유자(User)] - [그룹(Group)] - [기타 사용자(Others)] 순서로 구성되며, 읽기(4), 쓰기(2), 실행(1) 권한의 합계로 계산
 
 숫자별 권한 계산법 (참고)
 
@@ -164,7 +165,9 @@ total 4.0K
 # "hello-world.txt" 파일 권한 755 변경 확인 -rwxr-xr-x  
 $
 ```
-![테스트 실행 결과](./screenshots/c-chmod-test.png)
+
+[CHMOD Test]
+![CHMOD Test](./screenshots/c-chmod-test.png)
 
 
 
@@ -196,7 +199,9 @@ To generate this message, Docker took the following steps:
 To try something more ambitious, you can run an Ubuntu container with:
  $ docker run -it ubuntu bash
 ```
-![테스트 실행 결과](./screenshots/d-docker-version-daemon.png)
+
+[docker-version-daemon]
+![docker-version-daemon](./screenshots/d-docker-version-daemon.png)
 
 
 
@@ -250,8 +255,10 @@ $
 
 ```
 
-![Docker CMD 실행 결과](./screenshots/e-docker-basic-cmd.png)
+[Docker Basic CMD]
+![Docker Basic CMD](./screenshots/e-docker-basic-cmd.png)
 
+[Docker Stats Graph]
 ![Docker Stats Graph](./screenshots/e-docker-stats-graph.png)
 
 
@@ -295,7 +302,8 @@ $
 
 ```
 
-![Docker Stats Graph](./screenshots/f-1-docker-ubuntu-container-test.png)
+[Ubuntu Container Test]
+![Ubuntu Container Test](./screenshots/f-1-docker-ubuntu-container-test.png)
 
 
 <br/>
@@ -343,8 +351,9 @@ $
 
 
 ```
-
+[Docker Exec vs Attach]
 ![Docker Exec vs Attach](./screenshots/f-2-docker-exec-vs-attach-test.png)
+
 
 
 ## g. Dockerfile 빌드/실행
@@ -423,7 +432,9 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED          STATU
 c6f560257db7   cdsy-nginx:v1.0   "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   cdsy-server
 ```
 
+[Docker Image Build]
 ![Docker Image Build](./screenshots/g-1-docker-image-build.png)
+
 
 
 ## h. 포트 매핑 접속 증거
@@ -440,8 +451,8 @@ $curl localhost:8080    # localhost 8080 을 통한 cdsy-server 출력값 확인
 <p  style="font-size: 36px; text-align: center;">Hello CDSY World</p>
 $
 ```
-
-![Docker Image Build](./screenshots/h-port-mapping-shot.png)
+[Container Port Mapping]
+![Container Port Mapping](./screenshots/h-port-mapping-shot.png)
 
 
 
@@ -451,9 +462,9 @@ $
 
 - 'BEFORE mount' 출력하는 /mount-test/index.html 생성
 - nginx-bind 컨테이너 생성 (Port 8081:80)
-- 'BEFORE mount' 출력 확인
+- 'BEFORE mount' 출력 확인 (localhost:8081 접속)
 - index.html 내용 'AFTER mount'로 변경
-- 'AFTER mount' 출력 확인
+- 'AFTER mount' 출력 변화 확인 (localhost:8081 재접속)
 
 
 ```bash
@@ -475,24 +486,144 @@ $curl localhost:8081
 <h1 style="font-size: 48px; text-align: center;">AFTER mount</h1>
 $
 ```
-
+[BEFORE mount]
 ![BEFORE mount](./screenshots/i-BEFORE-bind-mount.png)
 
+[AFTER mount]
 ![AFTER mount](./screenshots/i-AFTER-bind-mount.png)
 
 
 ## j. 볼륨 영속성
 
 ```bash
+# 컨테이너 실행 및 접속
+$ docker run -it --name cntr-temp -v my-vol:/data ubuntu bash
+
+# Error: copy/paste 로 인해 작은따옴표(') 대신 UTF-8 8진수 코드로 입력 342\200\230 & 231
+root@d4f2ebc2b3ab:/# echo \342\200\230Consistency Test Success!\342\200\231 > /data/verify.txt
+bash: !’: event not found
+
+# (컨테이너 내부) 데이터 파일 verify.txt 'Consistency Test Success' 내용 생성 후 종료
+root@d4f2ebc2b3ab:/# echo 'Consistency Test Success!' > /data/verify.txt
+root@d4f2ebc2b3ab:/# exit
+exit
+
+# cntr-temp 삭제전 목록 확인
+$docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED         STATUS          PORTS     NAMES
+d4f2ebc2b3ab   ubuntu    "bash"    2 minutes ago   Up 30 seconds             cntr-temp
+$
+# Error: 컨테이너 운영 중 삭제 불가
+$docker rm cntr-temp
+Error response from daemon: cannot remove container "cntr-temp": container is running: stop the container before removing or force remove
+
+# cntr-temp 운영 종료 후 삭제
+$docker rm cntr-temp
+cntr-temp
+
+# 컨테이너 목록에서 cntr-temp 삭제 확인 
+$docker ps -a 
+CONTAINER ID   IMAGE     COMMAND                  CREATED        STATUS                        PORTS                  NAMES
+e5af6f1ac730   nginx     "/docker-entrypoint.…"   22 hours ago   Exited (255) 48 minutes ago   0.0.0.0:8081->80/tcp   nginx-bind
+9451f3101a02   ubuntu    "/bin/bash"              27 hours ago   Exited (0) 27 hours ago                              test-attach
+0d96300f4ed8   ubuntu    "/bin/bash"              27 hours ago   Exited (137) 25 hours ago                            test-exec
+$
+# 컨테이너 삭제 후에도 my-vol volume 유지 확인
+$docker volume ls
+DRIVER    VOLUME NAME
+local     my-vol
+$
+# 새 컨테이너 cntr-alpha 생성 및 my-vol volume 과 연결 
+$docker run -it --name cntr-alpha -v my-vol:/data ubuntu bash
+
+# volume 내 파일 verify.txt 유지 확인
+root@805113c1b2a4:/# ls /data
+verify.txt  
+
+# volume 내 verify.txt 의 내용 유지 확인
+root@805113c1b2a4:/# cat /data/verify.txt
+Consistency Test Success!
+root@805113c1b2a4:/# exit
+exit
+
+# mu-vol volume 유지 재확인
+$docker volume ls
+DRIVER    VOLUME NAME
+local     my-vol
+$
 
 ```
+
+
+[Docker Volume Consistency]
+![Docker Volume Consistency](./screenshots/j-volume-consistency-test.png)
+
 
 
 ## k. Git 설정 + VSCode GitHub 연동
 
+### Git 설정
+- git config-safe 명령을 정의하여 git config --list 로 출력되는 민감 정보 masking
+- 단축어 설정 명령인 git config alias 를 사용해 git config-safe 명령 정의 
+  
 ```bash
+# git 사용자 정보 (name, email) 설정
+# git init 후 defaultBranch name을 main 으로 지정 
+$git config --global user.name "name"
+ git config --global user.email "***@example.com"
+ git config --global init.defaultBranch main
+$
+# git config-safe 로 git config --list 명령 대체
+$git config-safe
+
+# 민감 정보는 '***'로 masking 되어 출력
+user.name=***     
+user.email=***
+init.defaultbranch=main
+credential.https://github.com.helper=***
+credential.https://github.com.helper=***
+credential.https://gist.github.com.helper=***
+credential.https://gist.github.com.helper=***
+alias.config-safe=!git config --list | sed -E "s/^(user\.(name|email)|credential\..*)=.*/\1=***/"
+$
+```
+
+[Git Config List]
+![Git Config List](./screenshots/k-1-git-config-list.png)
+
+
+### VSCode GitHub 연동
+
+```bash
+$
+# login 이전 상태 확인
+$gh auth status
+You are not logged into any GitHub hosts. To log in, run: gh auth login
+$
+# login auth HTTPS 브라우저 인증 시작
+$gh auth login
+? What account do you want to log into? GitHub.com
+? What is your preferred protocol for Git operations on this host? HTTPS
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: 9248-03D6
+Press Enter to open github.com in your browser... 
+! Failed opening a web browser at https://github.com/login/device
+  exec: "xdg-open,x-www-browser,www-browser,wslview": executable file not found in $PATH
+  Please try entering the URL in your browser manually
+✓ Authentication complete.
+# GitHub 인증 완료
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+! Authentication credentials saved in plain text
+✓ Logged in as ******
+# ID masking 처리
 
 ```
 
+[GitHub auth completed]
+![Github auth completed](./screenshots/k-2-github-auth-connected-shot.png)
 
+[GitHub auth CMD]
+![Github auth completed](./screenshots/k-3-github-auth-cmd.png)
 
